@@ -59,6 +59,21 @@
 <% } %> 
 </div>
 
+ <%# This is for the price and seat %> 
+ <% if(flight.tickets.length > 0){ %> 
+  <% flight.tickets.forEach(t => {%>
+       <div class="mb-12 list">
+          <h3 class="col-6">Price: <span class="col-6">$<%= t.price%> </span></h3>  
+      </div>
+
+      <div class="mb-12 list">
+          <h3 class="col-6">Seat: <span class="col-6"><%= t.seat %>  </span></h3> 
+      </div>
+  <% }); %> 
+<% } else { %> 
+  <h3>Please add ticket...</h3>
+<% } %> 
+
 
 
     <form action="/single-flight/<%= flight._id%>/add-arrival" method="POST" class="card">
@@ -79,6 +94,18 @@
       </div>
       <button type="submit" class="btn btn-secondary btn-lg b1" >Add Arrival</button>
   </form>
+
+  <form action="/single-flight/<%= flight._id%>/add-ticket" method="POST" class="card">
+    <div class="mb-12">
+        <label for="exampleFormControlInput1" class="form-label"> Seat</label>
+        <input name="seat"  class="form-control" id="exampleFormControlInput1" required pattern="[A-F][1-9]\d" >
+    </div>
+    <div class="mb-12">
+        <label for="exampleFormControlInput1" class="form-label">Price</label>
+        <input type="number" name="price" class="form-control" id="exampleFormControlInput1">
+    </div>
+    <button type="submit" class="btn btn-secondary btn-lg b1" >Add </button>
+</form>
 
 
 

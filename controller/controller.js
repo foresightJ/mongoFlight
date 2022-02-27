@@ -1,5 +1,5 @@
 const Flights = require("../model/Flight");
-
+const Ticket = require("../model/Ticket")
 
 // homePage or Get all flight page
 const index = async(req, res, next)  => {
@@ -45,7 +45,8 @@ const getAddFlights = (req, res, next)  => {
 const getSingleFlight = async (req, res, next)  => {
   try {
   let id = req.params.id
-  const flight =  await Flights.findById(id)
+  const flight =  await Flights.findById(id).populate('tickets')
+  .exec()
   
     let d = flight.departs
     let date = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()}`;
@@ -98,6 +99,32 @@ const deleteArrival = async (req, res) => {
   }
 }
 
+// Post Ticket
+const postTicket = async (req, res) => {
+  try {
+  const id =  req.params.id;
+  const seat = req.body.seat;
+  const price = req. body.price;
+  console.log(id)
+
+  const ticket = new Ticket ({
+   seat: seat,
+   price: price,
+   flight: id
+  })
+  await ticket.save() 
+ 
+  let myflight = await Flights.findById(id)
+  myflight.tickets.push(ticket._id)
+  await myflight.save()
+  res.send('thank you for ')
+} catch(err){
+  console.log(err)
+  res.send(err)
+}
+}
+
+
 
 
 
@@ -108,6 +135,7 @@ module.exports = {
   getSingleFlight,
   postFlight,
   postArrival,
-  deleteArrival
+  deleteArrival,
+  postTicket,
 
 }

@@ -15,9 +15,14 @@ router.get('/add-flight', controller.getAddFlights);
 // Get Single Flight Page
 router.get('/single-flight/:id', controller.getSingleFlight);
 
+// Post Arrival
 router.post('/single-flight/:id/add-arrival', controller.postArrival)
 
+// Delete Arrival
 router.post('/single-flight/delArrival/', controller.deleteArrival)
+
+// Post Ticket
+router.post('/single-flight/:id/add-ticket', controller.postTicket)
 
 
 
