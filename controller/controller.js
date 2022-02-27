@@ -55,6 +55,7 @@ const getSingleFlight = async (req, res, next)  => {
     flight: flight,
     depart: date,
     time: time,
+    parentId: id
   })
   
   } catch (error) {
@@ -62,7 +63,40 @@ const getSingleFlight = async (req, res, next)  => {
   }
 };
 
+// post arrival
 
+const postArrival = async (req, res) => {
+  try {
+    const id =  req.params.id;
+  const arrivalAirport = req.body.arrivalAirport;
+  const arrivalDate = req.body.arrivalDate
+  const result = await Flights.findById(id)
+  result.destinations.push({
+    airport:arrivalAirport,
+    date: arrivalDate
+  })
+  await result.save()
+  res.redirect(`/single-flight/${result._id}`)
+  
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//remove arrival
+const deleteArrival = async (req, res) => {
+  try {
+    const id = req.body.delArrival
+    const parentId = req.body.parent
+    const flight = await Flights.findById(parentId)
+    
+    await flight.destinations.id(id).remove()
+    await flight.save()
+    res.redirect(`/single-flight/${flight._id}`)
+  } catch (error) {
+    console.log(err)
+  }
+}
 
 
 
@@ -73,5 +107,7 @@ module.exports = {
   getAddFlights,
   getSingleFlight,
   postFlight,
+  postArrival,
+  deleteArrival
 
 }

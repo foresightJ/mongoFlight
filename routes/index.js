@@ -15,6 +15,9 @@ router.get('/add-flight', controller.getAddFlights);
 // Get Single Flight Page
 router.get('/single-flight/:id', controller.getSingleFlight);
 
+router.post('/single-flight/:id/add-arrival', controller.postArrival)
+
+router.post('/single-flight/delArrival/', controller.deleteArrival)
 
 
 

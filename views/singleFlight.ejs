@@ -36,6 +36,50 @@
       </div>
     </div>
 
+<div class="mb-12 list">
+
+  <%# this is for the arrival %> 
+  <% if(flight.destinations.length > 0){ %> 
+    <% flight.destinations.forEach(el => {%>
+      <div class="md-12 d-flex  justify-content-between">
+        <h3 class="">Arrival AirPort : <%= el.airport %> </h3>
+        <form action='/single-flight/delArrival' method='POST' class="removeSub">
+            <input type="hidden"  name="delArrival" value=<%= el._id %> >
+            <input type="hidden"  name="parent" value=<%= parentId %> >
+            <button type="submit" class="btn btn-danger"> X </button>
+        </form>
+      </div>
+      <div class="mb-12 ">
+        <h3 class="col-6">Arrival Date:</h3>
+        <p class="col-6"><%= el.date %>  </p>
+      </div>
+    <% }); %> 
+<% } else { %> 
+    <h3>Please add destination...</h3>
+<% } %> 
+</div>
+
+
+
+    <form action="/single-flight/<%= flight._id%>/add-arrival" method="POST" class="card">
+      <div class="mb-12">
+          <label for="airline" class="form-label">Airport</label>
+          <select class="form-select" name="arrivalAirport" aria-label="Default select example" >
+              <option selected> select airport...</option>
+              <option value="AUS"> AUS</option>
+              <option value="DFW"> DFW</option>
+              <option value="DEN"> DEN</option>
+              <option value="LAX"> LAX</option>
+              <option value="SAN"> SAN</option>
+          </select>
+      </div> 
+      <div class="mb-12">
+          <label for="exampleFormControlInput1" class="form-label"> Arrival Date</label>
+          <input type="datetime-local" class="form-control"  name="arrivalDate" id="exampleFormControlInput1">
+      </div>
+      <button type="submit" class="btn btn-secondary btn-lg b1" >Add Arrival</button>
+  </form>
+
 
 
     <%- include('./includes/footer.ejs') %> 
