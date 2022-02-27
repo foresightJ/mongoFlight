@@ -7,7 +7,7 @@ const index = async(req, res, next)  => {
     const flights = await Flights.find().sort({departs: 'asc'});
     res.render('index', {
           title: 'MY FLIGHT',
-          flights: flights
+          flights: flights,
         })
   } catch (error) {
     console.log(error)
@@ -36,9 +36,51 @@ const postFlight = async(req, res, next) => {
   }
 }
 
+// edit flight
+const getEditFlight = async (req, res) => {
+  try {
+    let id =  req.params.id
+    const flight = await Flights.findById(id)
+    
+    let departDate = flight.departs.toISOString().slice(0, 16) 
+    res.render('addFlight',{
+      title:  `Editing Flight ${flight.flightNo}`,
+      flight: flight,
+      editing: true,
+      depart: departDate,
+      
+    })
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//Delete a flight
+const deleteFlight = async (req, res) => {
+  try {
+    const id = req.body.flightId
+    console.log(id)
+    const result = await Flights.findByIdAndDelete(id)
+  
+    console.log('Deleted')
+    res.redirect('/')
+    
+  } catch (error) {
+    console.log(error)
+  }
+ 
+}
+
 // Get add flight page
 const getAddFlights = (req, res, next)  => {
-	res.render('addFlight', { title: 'Express' });
+  let date = new Date()
+  date.setFullYear(new Date().getFullYear() -1)
+	res.render('addFlight', { 
+    title: 'Welcome',
+    defaultDepart: date.toISOString().slice(0, 16),
+    editing: false 
+});
 };
 
 // Get single flight page
@@ -134,6 +176,8 @@ module.exports = {
   getAddFlights,
   getSingleFlight,
   postFlight,
+  getEditFlight,
+  deleteFlight,
   postArrival,
   deleteArrival,
   postTicket,

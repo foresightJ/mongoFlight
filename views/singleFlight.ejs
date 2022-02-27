@@ -29,10 +29,10 @@
 
     <div class="mb-12 list d-flex">
         <h3 class="col-6">Depart:</h3>
-        <p class="col-6"><%= new Date(depart) %></p>
+        <p class="col-6"><%= new Date(flight.departs) %></p>
     </div>
       <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
+        <a href="/single-flight/edit/<%= flight._id%>"  class="card-link">Edit This Flight</a>
       </div>
     </div>
 
