@@ -8,26 +8,29 @@
   
 <p>Welcome to <%= title %></p>
 
-<div class="row row-cols-1 row-cols-md-4 g-4">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="/single-flight/2" class="card-link">view</a>
+<% if (flights.length) { %> 
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <%for(let flight of flights){ %> 
+     
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Airline <%= flight.airline %> 
+              <small class="text-muted"><%= flight.flightNo %></small></h5>
+              <div class="card-header"><h2> Airport <%= flight.airport %></h2></div>
+              <div class=<%= flight.departs.getFullYear() !== new Date().getFullYear() ? 'dateError' : '' %> >
+                <p class="card-text">Your departure date is <%= flight.departs %></p>
+              </div>
+            </div>
+            <a href="/single-flight/<%= flight.id %>" class="card-link">view</a>
+          </div>
+        </div>
       </div>
-    </div>
+     <% } %> 
   </div>
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <a href="/single-flight/2" class="card-link">view</a>
-      </div>
-    </div>
-  </div>
-</div>
+<% } else {%>
+  <h1>Flight Departures not updated yet.. please <a href="/add-flight">add flight</a></h1>
+<% } %>
 
 
 

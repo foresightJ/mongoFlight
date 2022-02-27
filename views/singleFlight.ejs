@@ -3,8 +3,6 @@
 
 <%- include('./includes/nav.ejs') %> 
 
-  
-    <h1>this is a single flight page</h1>
     <p>Welcome to <%= title %></p>
 
 
@@ -13,14 +11,26 @@
         Featured
       </div>
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <h5 class="card-title">Card title</h5> 
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-      </ul>
+      <div class="col-12 list d-flex">
+        <h3 class="col-6">Airport :  </h3>
+        <p class="col-6"><%= flight.airport %></p>
+    </div> 
+
+    <div class="col-12 list d-flex">
+        <h3 class="col-6">Airline :  </h3>
+        <p class="col-6"><%= flight.airline %></p>
+    </div> 
+    <div class="mb-12 list d-flex">
+        <h3 class="col-6">Flight No : </h3>
+        <p class="col-6"><%= flight.flightNo %> </p>
+    </div>
+
+    <div class="mb-12 list d-flex">
+        <h3 class="col-6">Depart:</h3>
+        <p class="col-6"><%= new Date(depart) %></p>
+    </div>
       <div class="card-body">
         <a href="#" class="card-link">Card link</a>
       </div>

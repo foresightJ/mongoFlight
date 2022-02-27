@@ -42,8 +42,24 @@ const getAddFlights = (req, res, next)  => {
 };
 
 // Get single flight page
-const getSingleFlight = (req, res, next)  => {
-	res.render('singleFlight', { title: 'Express' });
+const getSingleFlight = async (req, res, next)  => {
+  try {
+  let id = req.params.id
+  const flight =  await Flights.findById(id)
+  
+    let d = flight.departs
+    let date = `${d.getFullYear()}-${d.getMonth()}-${d.getDay()}`;
+    let time = `${d.getHours()}Hrs ${d.getMinutes()}m`
+  res.render('singleFlight',{
+    title: `welcome to Flight ${flight.flightNo}`,
+    flight: flight,
+    depart: date,
+    time: time,
+  })
+  
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 
